@@ -4,7 +4,6 @@
 #include <string>
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 const int TIME_PERIODS = 20; // number of times simulation runs
 const int INITAL_CUSTOMERS = 5; // number of customers added at start of simulation
 const int NAMES_COUNT = 99; // number of names in names.txt
@@ -135,7 +134,7 @@ public:
     
         Node* temp = head;
     
-        for (int i = 1; i < pos-1; i++){
+        for (int i = 0; i < pos; i++){
             if (!temp) {
                 cout << "Position doesn't exist." << endl;
                 return;
@@ -289,7 +288,9 @@ int main() {
             line.delete_pos(i);
         }
         if (prob(VIP)){
-
+            string name = getRandomName();
+            line.push_front(name);
+            cout << "\t" << name << " (VIP) joins the front of the line.\n";
         }
 
         cout << "  > Resulting Line: "; line.print();
