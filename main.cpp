@@ -14,11 +14,11 @@ const int ORDERING = 0.4, JOINING = 0.6, LEAVING = 0.2, ANY_LEAVING = 0.1, VIP =
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        string name;
         Node* prev;
         Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
+        Node(string val, Node* p = nullptr, Node* n = nullptr) {
+            name = val; 
             prev = p;
             next = n;
         }
@@ -30,7 +30,7 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    void insert_after(int value, int position) {
+    void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
@@ -61,12 +61,12 @@ public:
         temp->next = newNode;
     }
 
-    void delete_val(int value) {
+    void delete_val(string value) {
         if (!head) return;
 
         Node* temp = head;
         
-        while (temp && temp->data != value)
+        while (temp && temp->name != value)
             temp = temp->next;
 
         if (!temp) return; 
@@ -121,7 +121,7 @@ public:
         delete temp;
     }
 
-    void push_back(int v) {
+    void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
@@ -132,7 +132,7 @@ public:
         }
     }
     
-    void push_front(int v) {
+    void push_front(string v) {
         Node* newNode = new Node(v);
         if (!head)
             head = tail = newNode;
@@ -191,7 +191,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << current->name << " ";
             current = current->next;
         }
         cout << endl;
@@ -204,7 +204,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << current->name << " ";
             current = current->prev;
         }
         cout << endl;
@@ -213,15 +213,35 @@ public:
 
 // prototypes
 bool prob(float x); // returns true randomly based on the probability stated with x
+string getRandomName();
 
 int main() {
     DoublyLinkedList line;
 
+    // Starting Customers
     cout << "Store opens:\n";
+    for (int i = 0; i < INITAL_CUSTOMERS; i++){
+        string name = getRandomName();
+        line.push_back(name);
+        cout << "\t" << name << " joins the line.\n";
+    }
+    cout << "Resulting Line: "; line.print();
+
+    // Simulation Loop
+    for (int step = 2; step <= TIME_PERIODS; step++){
+        cout << "Time step #" << step << endl;
+    }
+
+    }
     
     return 0;
 }
 
 bool prob(float x){
+
     return false;
+}
+
+string getRandomName(){
+    return "bob";
 }
