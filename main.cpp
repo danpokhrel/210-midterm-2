@@ -31,6 +31,9 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    string get_front() const { return head->name; }
+    string get_back() const { return tail->name; }
+
     void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
@@ -232,11 +235,23 @@ int main() {
     // Simulation Loop
     for (int step = 2; step <= TIME_PERIODS; step++){
         cout << "Time step #" << step << endl;
-    }
 
-    // test
-    for (int i = 0; i < 20; i++){
-        cout << getRandomName() << " ";
+        if (prob(ORDERING)){
+            cout << "\t" << line.get_front() << "is served";
+            line.pop_front();
+        }
+        if (prob(JOINING)){
+
+        }
+        if (prob(LEAVING)){
+
+        }
+        if (prob(ANY_LEAVING)){
+
+        }
+        if (prob(VIP)){
+
+        }
     }
     
     return 0;
@@ -257,7 +272,7 @@ string getRandomName(){
 
     int i = 0, x = rand() % NAMES_COUNT; // rand number between 0 and 98
     string name;
-    while (fin && i <= x){
+    while (fin && i <= x){ // loop through lines until we get to the x'th line
         getline(fin, name);
         i++;
     }
