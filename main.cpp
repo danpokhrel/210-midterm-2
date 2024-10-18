@@ -44,6 +44,30 @@ public:
             return "<Line is empty>";
     }
 
+    string get_at(int x) const {
+        int i = 0;
+        Node *curr = head;
+        while (head && i<x){
+            curr = curr->next;
+            i++;
+        }
+        if (!curr){
+            cout << "Out of bounds";
+            return "<Invalid>";
+        }
+        return curr->name;
+    }
+
+    int get_size()  const {
+        Node *curr = head;
+        int i = 0;
+        while (curr){
+            curr = curr->next;
+            i++;
+        }
+        return i;
+    }
+
     void insert_after(string value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
@@ -104,14 +128,14 @@ public:
             return;
         }
     
-        if (pos == 1) {
+        if (pos == 0) {
             pop_front();
             return;
         }
     
         Node* temp = head;
     
-        for (int i = 1; i < pos; i++){
+        for (int i = 1; i < pos-1; i++){
             if (!temp) {
                 cout << "Position doesn't exist." << endl;
                 return;
@@ -256,11 +280,13 @@ int main() {
             cout << "\t" << name << " joined the line.\n";
         }
         if (prob(LEAVING)){
-            cout << "\t" << line.get_back() << " (at the rear) left the line";
+            cout << "\t" << line.get_back() << " (at the rear) left the line.\n";
             line.pop_back();
         }
         if (prob(ANY_LEAVING)){
-
+            int i = rand() % line.get_size();
+            cout << "\t" << line.get_at(i) << " left the line.\n";
+            line.delete_pos(i);
         }
         if (prob(VIP)){
 
