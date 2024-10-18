@@ -1,8 +1,15 @@
 // COMSC-210 | Midterm 2 | Dan Pokhrel
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int TIME_PERIODS = 20; // number of times simulation runs
+const int INITAL_CUSTOMERS = 5; // number of customers added at start of simulation
+const int NAMES_COUNT = 99; // number of names in names.txt
+// Probabilities
+const int ORDERING = 0.4, JOINING = 0.6, LEAVING = 0.2, ANY_LEAVING = 0.1, VIP = 0.1;
 
 class DoublyLinkedList {
 private:
@@ -204,9 +211,17 @@ public:
     }
 };
 
-int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+// prototypes
+bool prob(float x); // returns true randomly based on the probability stated with x
 
+int main() {
+    DoublyLinkedList line;
+
+    cout << "Store opens:\n";
     
     return 0;
+}
+
+bool prob(float x){
+    return false;
 }
