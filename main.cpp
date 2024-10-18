@@ -8,8 +8,9 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 const int TIME_PERIODS = 20; // number of times simulation runs
 const int INITAL_CUSTOMERS = 5; // number of customers added at start of simulation
 const int NAMES_COUNT = 99; // number of names in names.txt
+const string NAMES_FILE = "names.txt";
 // Probabilities
-const int ORDERING = 0.4, JOINING = 0.6, LEAVING = 0.2, ANY_LEAVING = 0.1, VIP = 0.1;
+const int ORDERING = 40, JOINING = 60, LEAVING = 20, ANY_LEAVING = 10, VIP = 10;
 
 class DoublyLinkedList {
 private:
@@ -212,10 +213,11 @@ public:
 };
 
 // prototypes
-bool prob(float x); // returns true randomly based on the probability stated with x
+bool prob(int x); // returns true randomly based on the probability stated with x
 string getRandomName();
 
 int main() {
+    srand(time(0));
     DoublyLinkedList line;
 
     // Starting Customers
@@ -232,16 +234,33 @@ int main() {
         cout << "Time step #" << step << endl;
     }
 
+    // test
+    for (int i = 0; i < 20; i++){
+        cout << getRandomName() << " ";
     }
     
     return 0;
 }
 
-bool prob(float x){
-
-    return false;
+bool prob(int x){
+    int p = rand() % 100 + 1;
+    return p <= x;
 }
 
 string getRandomName(){
-    return "bob";
+    ifstream fin;
+    fin.open(NAMES_FILE);
+    if (!fin){
+        cout << "Names file not found.";
+        return "<Error>";
+    }
+
+    int i = 0, x = rand() % NAMES_COUNT; // rand number between 0 and 98
+    string name;
+    while (fin && i <= x){
+        getline(fin, name);
+        i++;
+    }
+
+    return name;
 }
