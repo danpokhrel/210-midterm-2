@@ -31,8 +31,18 @@ private:
 public:
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    string get_front() const { return head->name; }
-    string get_back() const { return tail->name; }
+    string get_front() const {
+        if (head)
+            return head->name;
+        else
+            return "<Line is empty>";
+    }
+    string get_back() const {
+        if (tail)
+            return tail->name;
+        else
+            return "<Line is empty>";
+    }
 
     void insert_after(string value, int position) {
         if (position < 0) {
@@ -230,21 +240,24 @@ int main() {
         line.push_back(name);
         cout << "\t" << name << " joins the line.\n";
     }
-    cout << "Resulting Line: "; line.print();
+    cout << " >  Resulting Line: "; line.print();
 
     // Simulation Loop
     for (int step = 2; step <= TIME_PERIODS; step++){
-        cout << "Time step #" << step << endl;
+        cout << "\nTime step #" << step << endl;
 
         if (prob(ORDERING)){
-            cout << "\t" << line.get_front() << "is served";
+            cout << "\t" << line.get_front() << " is served\n";
             line.pop_front();
         }
         if (prob(JOINING)){
-
+            string name = getRandomName();
+            line.push_back(name);
+            cout << "\t" << name << " joined the line.\n";
         }
         if (prob(LEAVING)){
-
+            cout << "\t" << line.get_back() << " (at the rear) left the line";
+            line.pop_back();
         }
         if (prob(ANY_LEAVING)){
 
@@ -252,6 +265,8 @@ int main() {
         if (prob(VIP)){
 
         }
+
+        cout << "  > Resulting Line: "; line.print();
     }
     
     return 0;
